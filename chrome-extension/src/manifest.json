@@ -3,13 +3,13 @@
   "name": "SmartNFTY",
   "description": "Predict NFT valuation",
   "version": "1.0",
-  "content_scripts": [
-    {
-      "js": ["content-script.js"],
-      "css": ["styles.css"],
-      "matches": [
-        "https://opensea.io/*"
-      ]
-    }
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "webNavigation", "scripting"
+  ],
+  "host_permissions": [
+    "https://opensea.io/*"
   ]
 }
