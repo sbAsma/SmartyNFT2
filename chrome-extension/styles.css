@@ -1,0 +1,11 @@
+.smarty-nft-tooltip {
+    padding: 40px;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 8%) 0 4px 15px;
+    font-weight: bold;
+    font-size: 25px;
+    transition: opacity .3s;
+    color: #f00;
+}

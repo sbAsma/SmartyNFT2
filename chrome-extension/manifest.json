@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "SmartNFTY",
+  "description": "Predict NFT valuation",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "js": ["content-script.js"],
+      "css": ["styles.css"],
+      "matches": [
+        "https://opensea.io/*"
+      ]
+    }
+  ]
+}
