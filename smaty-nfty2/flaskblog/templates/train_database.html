@@ -1,0 +1,362 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+
+
+        
+
+
+
+
+
+
+        
+
+
+      
+
+
+
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+          <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor">NFT PREDICTION</h3>
+            {% with messages = get_flashed_messages(with_categories = True) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{category}}">
+                    {{message}}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Accueil</a></li>
+              <li class="breadcrumb-item active">Training</li>
+            </ol>
+            
+          </div>
+          
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        
+
+        <!-- Validation wizard -->
+        <div class="row" id="validation">
+          <div class="col-12">
+            <div class="card wizard-content">
+              <div class="card-body">
+                <h4 class="card-title">Creation of an NFT model that can predict good NFTs to buy and sell</h4>
+                <h6 class="card-subtitle">Creation of an NFT model that can predict good NFTs to buy and sell</h6>
+                <form class="searchForm validation-wizard wizard-circle"  method="post" id="train_form" action="{{url_for('analyse.train_results_db')}}">
+                  <!-- Step 1 -->
+                  <h6>step 1</h6>
+                  <section>
+                    
+                    <div class="row">
+
+                      <div class="col-sm-6">
+
+                        <div class="form-group">
+                          <label for="sector">Data types</label>
+                          <select class="custom-select form-control required" id="sector" name="sector">
+                            <option value="nft-sales">NFT sales</option>
+                            <option value="tout">Other</option>
+                          </select>
+                        </div>    
+
+
+                      </div>
+
+                      <div class="col-sm-6">
+
+                        <div class="form-group">
+                          <label for="model_type">Type :</label>
+                          <select class="custom-select form-control required" id="model_type" name="model_type">
+                            <option value="rnn">Deep Learning (RNN)</option>
+                            <option value="other">Regression</option>
+                          
+                          </select>
+                        </div>    
+
+
+                      </div>
+                    
+                    </div>
+
+                    <div class="row">
+                      
+                      <div class="col-sm-6">
+                        <label class="m-t-10">Start Date</label>
+                        <input type="text" class="form-control" placeholder="2019-11-04" value="2019-11-04" id="startdate" name="startdate">
+                      </div>
+
+                      <div class="col-sm-6">
+                        <label class="m-t-10">End Date</label>
+                        <input type="text" class="form-control" placeholder="2022-11-04" value="2022-11-04" id="enddate" name="enddate">
+                      </div>
+                      
+                    </div>
+
+
+                  </section>
+
+                  <div class="vlt-gap-20"></div>
+
+                  <!-- Step 2 -->
+                  <h6>Step 2</h6>
+                  <section>
+                    <div class="row">
+
+                        <div class="col-sm-3 rnn_box">
+                            <div class="form-group">
+                              <label for="epoch_n">num Epochs :</label>
+                              <select class="custom-select form-control required" id="epoch_n" name="epoch_n">
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                              </select>
+                            </div>  
+                        </div>
+
+                        <div class="col-sm-3 rnn_box">
+                            <div class="form-group">
+                              <label for="embedding_dim">embedding Dimension :</label>
+                              <select class="custom-select form-control required" id="embedding_dim" name="embedding_dim">
+                                <option value="8">8</option>
+                                <option selected="selected" value="16">16</option>
+                                <option value="32">32</option>
+                                <option value="64">64</option>
+                                <option value="128">128</option>
+                                <option value="256">256</option>
+                              </select>
+                            </div>  
+                        </div>
+
+
+                        <div class="col-sm-3 rnn_box">
+                            <div class="form-group">
+                              <label for="max_length">Max Length :</label>
+                              <select class="custom-select form-control required" id="max_length" name="max_length">
+                                <option value="20">20</option>
+                                <option selected="selected" value="40">40</option>
+                                <option value="60">60</option>
+                                <option value="80">80</option>
+                                <option value="100">100</option>
+                                <option value="1200">1200</option>
+                              </select>
+                            </div>  
+                        </div>
+
+                        <div class="col-sm-3 rnn_box">
+                            <div class="form-group">
+                              <label for="shuffle_set">Shuffle Set :</label>
+                              <select class="custom-select form-control required" id="shuffle_set" name="shuffle_set">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                              </select>
+                            </div>  
+                        </div>
+
+
+
+                        <div class="col-sm-6 other_box">
+                            <div class="form-group">
+                              <label for="equalize_set">Equalize Set :</label>
+                              <select class="custom-select form-control required" id="equalize_set" name="equalize_set">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                              </select>
+                            </div>  
+                        </div>
+
+
+                        <div class="col-sm-6">
+
+                            <div class="form-group">
+                              <label for="ratio_train">Train Set :</label>
+                              <select class="custom-select form-control required" id="ratio_train" name="ratio_train">
+                                <option value="95">95 %</option>
+                                <option value="90">90 %</option>
+                                <option value="85">85 %</option>
+                                <option selected="selected" value="80">80 %</option>
+                                <option value="75">75 %</option>
+                              </select>
+                            </div>  
+                          
+                        </div>
+                        
+
+                      
+
+                      
+                      
+                    </div>
+                  </section>
+                  <!-- Step 3 -->
+                  <h6>Etape 3</h6>
+                  <section>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                            <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Information</h3> The training may take some time, so you can take a coffee and get back.
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </section>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- vertical wizard -->
+
+
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
+
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+       {% block scripts %}
+
+
+
+  <script>
+
+  // MAterial Date picker  
+  jQuery('#startdate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+  jQuery('#enddate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+  jQuery(".searchForm").on("submit", function(){
+    jQuery("#pageloader").fadeIn();
+    });//submit
+  jQuery(window).bind("pageshow", function(event) {
+    jQuery("#pageloader").hide();
+  });
+
+  
+  jQuery(".rnn_box").hide();
+  jQuery( ".actions li:last-child a" ).hide();
+  jQuery( ".actions li:last-child" ).append( "<button type='submit' class='btn waves-effect waves-light btn-info'>Retrive and Train</button>" );
+  //jQuery( ".actions li:last-child" ).remove( "" );
+
+  $("#model_type").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue == "rnn"){
+                $(".other_box").hide();
+                $(".rnn_box").show();
+                $('#train_form').attr('action', "{{url_for('analyse.train_results_rnn')}}");
+            } else{
+                $(".other_box").show();
+                $(".rnn_box").hide();
+                $('#train_form').attr('action', "{{url_for('analyse.train_results_db')}}");
+            }
+        });
+    }).change();
+     
+  </script>
+
+       {% endblock %}
+{% endblock %}

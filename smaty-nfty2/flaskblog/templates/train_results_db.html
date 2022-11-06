@@ -1,0 +1,823 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0">Resultats d'apprentissage</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Acceuil</a></li>
+                            <li class="breadcrumb-item active">Resultats</li>
+                            <li class="breadcrumb-item active">Resultats</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <h2 class="d-inline">Resultats d'apprentissage <a href="#code1" data-toggle="collapse"><i class="fa fa-code" data-toggle="tooltip" title="Get code"></i></a></h2>
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="roun align-self-center roun-info"><i class="fa fa-comments-o icon icon-blue"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_all}}</h3>
+                                        <h5 class="text-muted m-b-0">Total</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class=" align-self-center round-success"><i class="fa fa-smile-o icon icon-green"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_pos}}</h3>
+                                        <h5 class="text-muted m-b-0">Positive</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class=" align-self-center round-success"><i class="fa fa-meh-o icon icon-blue"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_neu}}</h3>
+                                        <h5 class="text-muted m-b-0">Neutral</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="roun align-self-center roun-info"><i class="fa fa-frown-o icon icon-red"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_neg}}</h3>
+                                        <h5 class="text-muted m-b-0">Negative</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-3 col-lg-2 col-xlg-3">
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-8 col-xlg-2">
+                        <div class="card card-inverse card-megna">
+                            <div class="box text-center">
+                                <h1 class="font-light text-white">{{accuracy_avg}} %</h1>
+                                <h6 class="text-white">ACCURACY RATE</h6>
+                                <h4 class="text-white">The model is performing well</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-md-3 col-lg-2 col-xlg-3">
+                    </div>
+
+
+
+                    
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Positive Words</h4>
+                                <canvas id="PosWords" width="600" height="400"></canvas>                        
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Neutral Words</h4>
+                                <canvas id="NeuWords" width="600" height="400"></canvas>                        
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Negative Words</h4>
+                                <canvas id="NegWords" width="600" height="400"></canvas>                        
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Accuracy Scores depending on Stopwords</h4>
+                                <canvas id="ugStopWords" width="600" height="400"></canvas>                        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Accuracy Scores depending on Unigrams, Bigrams and Trigrams</h4>
+                                <canvas id="UgBgTg" width="600" height="400"></canvas>                        
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Results on Test Data</h3>
+                                <h4 class="card-title">Confusion Table</h4>
+
+                               
+
+                                <div class="table-responsive">
+                                    {{ r_t_confusion.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                                </div><br>
+
+                                <h4>Classification Report:</h4>
+
+                                <div class="table-responsive">
+                                    {{ r_t_class_report.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Results on Evaluation Data</h3>
+                                <h4 class="card-title">Confusion Table</h4>
+
+                               
+
+                                <div class="table-responsive">
+                                    {{ r_v_confusion.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                                </div> <br>
+                                <h4>Classification Report:</h4>
+                                <div class="table-responsive">
+                                    {{ r_v_class_report.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Accuracy Scores depending on Count Vectorizer and Tf-Idf</h3>
+                                <canvas id="TfidfCv" width="600" height="400"></canvas>                        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Comparison with Different Algorithms</h3>
+
+                               
+
+                                <div class="table-responsive">
+                                    {{ comparing_algorithms.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                    </div>
+
+
+
+
+
+
+                    <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+                    
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Sentiment Analysis on Excel</h4>
+                                <h6 class="card-subtitle">Upload an file with a column named "Text", and will get Sentiment analysis of all that column. </h6>
+                                <form class="dropzon searchForm" method="POST" id="upload-form" action="save_model_reg?sentiment_fit2={{sentiment_fit2}}&tg_cvec={{tg_cvec}}&df_save={{df_save}}" enctype="multipart/form-data">
+                                  <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <label class="m-t-10">Model Name</label><br>
+                                        <input type="text" name="modelName" id="modelName" placeholder="Model Name"  />
+                                        <span class="text-danger" style="display: none">Nom de modele existant deja</span>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Algorithm</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="classifier" name="classifier" data-style="btn-info btn-outline-info">
+                                            <option value="Logistic_Regression">Logistic Regression</option>
+                                            <option value="Linear_SVC">Linear SVC</option>
+                                            <option value="LinearSVC_L1">LinearSVC with L1-based feature selection</option>
+                                            <option value="Multinomial_NB">Multinomial NB</option>
+                                            <option value="Bernoulli_NB">Bernoulli NB</option>
+                                            <option value="Ridge_Classifier">Ridge Classifier</option>
+                                            <option value="AdaBoost">AdaBoost</option>
+                                            <option value="Perceptron">Perceptron</option>
+                                            <option value="Passive_Aggresive">Passive Aggresive</option>
+                                            <option value="Nearest_Centroid">Nearest Centroid</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Word Association</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="word_grams" name="word_grams" data-style="btn-info btn-outline-info">
+                                            <option value="unigrams">Unigrams</option>
+                                            <option value="bigrams">Bigrams</option>
+                                            <option value="trigrams">Trigrams</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Vectorization</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="vectorizer" name="vectorizer" data-style="btn-info btn-outline-info">
+                                            <option value="tfidf">TF-IDF</option>
+                                            <option value="cv">Count-Vectorizer</option>
+                                        </select>
+                                    </div>
+
+                                    <!--<div class="col-sm-2">
+                                        <label class="m-t-10">Stop Words</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="stopwords" name="stopwords" data-style="btn-info btn-outline-info">
+                                            <option value="dareja">Dareja</option>
+                                            <option value="arabic">Arabic</option>
+                                            <option value="french">Francais</option>
+                                            <option value="english">Anglais</option>
+                                        </select>
+                                    </div>-->
+
+
+                                    <div class="col-sm-4">
+                                        <label class="m-t-10">Ready !</label><br>
+                                        <input type="submit" class="btn rounded  btn-success" value="Save Model">
+                                    </div>
+
+                                    
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+                    <div class="col-lg-12">
+                        <div class="card">
+
+                            <div class="card-body">
+
+                                
+
+                                <h4 class="card-title">Negative Words Table</h4>
+                                <div class="table-responsive">
+                                    {{ top_50_neg.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                            
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+
+                                
+
+                                <h4 class="card-title">Neutral Words Table</h4>
+                                <div class="table-responsive">
+                                    {{ top_50_neu.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                            
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+
+                                
+
+                                <h4 class="card-title">Positive Words Table</h4>
+                                <div class="table-responsive">
+                                    {{ top_50_pos.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                            
+                                </div>
+                            </div>
+
+
+
+                            <div class="card-body">
+                                <h4 class="card-title">Testing Data</h4>
+
+
+                                <div class="table-responsive">
+                                    <table class="dataframe display nowrap table table-hover table-striped table-bordered dataTable" border="1">
+                                        <thead>
+                                            <tr>
+                                                <th>Index</th>
+                                                <th>Text</th>
+                                                <th>Polarity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in range(0, test_data_len) %}
+                                            <tr {% if i in wrong_pred  %} class="{{wrong_class}}" 
+                                            {% endif %} >
+                                                <td>{{result_1.index[i]}} </td>
+                                                <td>{{result_1.comment[i]}} </td>
+                                                <td>{{y_pred_test[i]}} </td>
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                            
+                                </div>
+
+                            </div>
+
+
+                            <!--<div class="card-body">
+                                <h4 class="card-title">Validation Data</h4>
+                                <div class="table-responsive">
+                                    {{ result_2.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                            
+                                </div>
+                            </div> -->
+
+                            
+                        </div>
+                    </div>
+
+                    
+                    
+                    
+                </div>
+                <!-- Row -->
+
+                
+
+                
+                
+
+                
+               
+                
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <div class="right-sidebar">
+                    <div class="slimscrollright">
+                        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+                        <div class="r-panel-body">
+                            <ul id="themecolors" class="m-t-20">
+                                <li><b>With Light sidebar</b></li>
+                                <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
+                                <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
+                                <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
+                                <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
+                                <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
+                                <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
+                                <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
+                                <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
+                                <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
+                                <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
+                                <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
+                                <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
+                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
+                            </ul>
+                            <ul class="m-t-20 chatonline">
+                                <li><b>Chat option</b></li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+        
+{% endblock %}
+
+
+{% block scripts %}
+<!-- Graph for Unigrams with STOPWORDS VARIATIONS -->
+<script>
+    // Our labels along the x-axis
+var n_features = [
+          {% for item in ug_labels %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+
+// For drawing the lines
+var ug = [
+            {% for item in ug_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var ug_wocsw = [
+            {% for item in ug_wocsw_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var ug_wosw = [
+            {% for item in ug_wosw_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+var ctx = document.getElementById("ugStopWords");
+var ugStopWords = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: n_features,
+    datasets: [
+      { 
+        data: ug, 
+        label: "with stop words", 
+        borderColor: "#3e95cd",
+        fill: false
+
+      }, { 
+        data: ug_wocsw, 
+        label: "without custom stop words", 
+        borderColor: "#e5871e",
+        fill: false
+
+      }, { 
+        data: ug_wosw, 
+        label: "without stop words", 
+        borderColor: "#84d27f",
+        fill: false
+
+      }
+    ]
+  }
+});
+</script>
+
+<!-- Graph for Unigrams , Bigrams, Trigrams -->
+<script>
+    // Our labels along the x-axis
+var n_features = [
+          {% for item in ug_labels %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+
+// For drawing the lines
+var ug = [
+            {% for item in ug_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var bg = [
+            {% for item in bg_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var tg = [
+            {% for item in tg_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+var ctx1 = document.getElementById("UgBgTg");
+var UgBgTg = new Chart(ctx1, {
+  type: 'line',
+  data: {
+    labels: n_features,
+    datasets: [
+      { 
+        data: ug, 
+        label: "Unigrams", 
+        borderColor: "#3e95cd",
+        fill: false
+
+      }, { 
+        data: bg, 
+        label: "Bigrams", 
+        borderColor: "#e5871e",
+        fill: false
+
+      }, { 
+        data: tg, 
+        label: "Trigrams", 
+        borderColor: "#84d27f",
+        fill: false
+
+      }
+    ]
+  }
+});
+</script>
+
+
+<!-- Graph WITH TFIDF and CV for Unigrams , Bigrams, Trigrams -->
+
+<script>
+    // Our labels along the x-axis
+var n_features = [
+          {% for item in ug_labels %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+
+// For drawing the lines
+var ug = [
+            {% for item in ug_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var bg = [
+            {% for item in bg_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var tg = [
+            {% for item in tg_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+var ugt = [
+            {% for item in ugt_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var bgt = [
+            {% for item in bgt_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+var tgt = [
+            {% for item in tgt_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+
+var ctx2 = document.getElementById("TfidfCv");
+var TfidfCv = new Chart(ctx2, {
+  type: 'line',
+  data: {
+    labels: n_features,
+    datasets: [
+      { 
+        data: ug, 
+        label: "Unigrams CV", 
+        borderColor: "#ed9174",
+        fill: false
+
+      }, { 
+        data: bg, 
+        label: "Bigrams CV", 
+        borderColor: "#5f6fe8",
+        fill: false
+
+      }, { 
+        data: tg, 
+        label: "Trigrams CV", 
+        borderColor: "#80e65c",
+        fill: false
+
+      }, { 
+        data: ugt, 
+        label: "Unigrams TFIDF", 
+        borderColor: "#963e23",
+        fill: false
+
+      }, { 
+        data: bgt, 
+        label: "Bigrams TFIDF", 
+        borderColor: "#1929a6",
+        fill: false
+
+      }, { 
+        data: tgt, 
+        label: "Trigrams TFIDF", 
+        borderColor: "#308a11",
+        fill: false
+
+      }
+    ]
+  }
+});
+</script> 
+
+
+<!-- Graph for Positive Words -->
+<script>
+    // Our labels along the x-axis
+var pos_labels = [
+          {% for item in pos_labels %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+
+// For drawing the lines
+var pos_values = [
+            {% for item in pos_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+var ctx4 = document.getElementById("PosWords");
+var ugStopWords = new Chart(ctx4, {
+  type: 'bar',
+  data: {
+    labels: pos_labels,
+    datasets: [
+      { 
+        data: pos_values, 
+        label: "Positive Words", 
+        borderColor: "#11ce49",
+        backgroundColor: "#11ce49",
+        fill: false
+
+      }
+    ]
+  }
+});
+</script>
+
+
+<!-- Graph for Negative Words -->
+<script>
+    // Our labels along the x-axis
+var neg_labels = [
+          {% for item in neg_labels %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+
+// For drawing the lines
+var neg_values = [
+            {% for item in neg_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+var ctx5 = document.getElementById("NegWords");
+var ugStopWords = new Chart(ctx5, {
+  type: 'bar',
+  data: {
+    labels: neg_labels,
+    datasets: [
+      { 
+        data: neg_values, 
+        label: "Negative Words", 
+        borderColor: "#fd6d6d",
+        backgroundColor: "#fd6d6d",
+        fill: false
+
+      }
+    ]
+  }
+});
+</script>
+
+
+
+<!-- Graph for Neutral Words -->
+<script>
+    // Our labels along the x-axis
+var neu_labels = [
+          {% for item in neu_labels %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+
+// For drawing the lines
+var neu_values = [
+            {% for item in neu_values %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+var ctx7 = document.getElementById("NeuWords");
+var ugStopWords = new Chart(ctx7, {
+  type: 'bar',
+  data: {
+    labels: neu_labels,
+    datasets: [
+      { 
+        data: neu_values, 
+        label: "Neutral Words", 
+        borderColor: "#3e95cd",
+        backgroundColor: "#3e95cd",
+        fill: false
+
+      }
+    ]
+  }
+});
+
+
+
+
+
+
+    var models  = [
+          {% for item in models %}
+           "{{ item }}",
+          {% endfor %}
+    ];
+    var text = "Yogesh singh";
+    
+
+    $("#modelName").on("input", function() {
+        if (jQuery.inArray(this.value, models) !== -1 ) {
+            $('input[value="Save Model"]').attr("disabled","disabled");
+            $(this).addClass("input-danger");
+            $(".text-danger").css("display", 'block');
+        } else {
+            $('input[value="Save Model"]').removeAttr("disabled")
+            $(this).removeClass("input-danger");
+            $(".text-danger").css("display", 'none');
+        }
+    });
+</script>
+
+
+
+
+{% endblock scripts %}

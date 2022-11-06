@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Train Page for Sentiment Analysis</h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Topic Modeling</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+
+
+
+
+
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+                    
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Topic Modeling</h4>
+                                <h6 class="card-subtitle">Upload a csv file. </h6>
+                                <form class="dropzon" method="POST" id="upload-form" action=" {{url_for('analyse.topic_results')}} " enctype="multipart/form-data">
+                                    <div class="fallback">
+                                        <input name="file" type="file" style="background: #fff8cf; padding: 20px;" />
+                                    </div><br>
+                                    <input type="submit" class="btn rounded  btn-success" value="Upload & Get Topic Modeling">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           
+
+
+{% endblock %}

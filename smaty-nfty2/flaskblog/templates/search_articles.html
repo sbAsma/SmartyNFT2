@@ -1,0 +1,222 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Train Page for Sentiment Analysis</h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Train</li>
+                        </ol>
+                        {{folders}}
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+
+
+
+
+
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+                    
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="searchForm" method="post" action="{{url_for('analyse.search_articles_results')}}">
+                                <h4 class="card-title">Search from Articles (Database)</h4>
+                                
+                                <div class="row">
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="m-t-10">Titre</label>
+                                            <input type="text" class="form-control" id="Titrearticle" name="Titrearticle" placeholder="Titre">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="m-t-10">resume</label>
+                                            <input type="text" class="form-control" id="resume" name="resume" placeholder="Resume">
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Langue</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="langue" name="langue" data-style="btn-info btn-outline-info">
+                                            <option data-tokens="ketchup mustard" value="5">Francais</option>
+                                            <option data-tokens="mustard" value="6">Arabe</option>
+                                            <option data-tokens="frosting" value="7">Anglais</option>
+                                        </select>
+                                    </div>
+                                    -->
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Start Date</label>
+                                        <input type="text" class="form-control" placeholder="2019-06-04" value="2016-10-01" id="startdate" name="startdate">
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">End Date</label>
+                                        <input type="text" class="form-control" placeholder="2020-07-07" value="2020-07-07" id="enddate" name="enddate">
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Model</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="model" name="model" data-style="btn-info btn-outline-info">
+                                            {% for model in folders %}
+                                            <option data-tokens="ketchup mustard" value="{{model}}">{{model}}</option>
+                                            
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Ready !</label><br>
+                                        <button type="submit" class="btn waves-effect waves-light btn-rounded btn-primary">Search</button>
+                                    </div>
+                                </div>  
+                                </form>  
+                                    <!--Your Search Query has:
+                                    <p>Commenter name has keyword: <b>{{commenter}}</b></p>
+                                    <p>Comment has keyword: <b>{{comment}}</b></p>
+                                    <p>Start Date: <b>{{startdatte}}</b></p>
+                                    <p>End Date: <b>{{enddate}}</b></p>
+                                    <p>Operator: <b>{{operator}}</b></p>-->
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                  
+
+                    
+
+
+
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           {% block scripts %}
+
+
+
+    <script>
+
+    // MAterial Date picker    
+    jQuery('#startdate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery('#enddate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery(".searchForm").on("submit", function(){
+        jQuery("#pageloader").fadeIn();
+      });//submit
+         
+    </script>
+
+           {% endblock %}
+{% endblock %}

@@ -1,0 +1,202 @@
+{% extends "layout.html" %}
+                
+
+{% block content %}
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+
+
+
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Dashboard</h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        {{user_k}}
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+                <!-- ============================================================== -->
+
+  
+
+
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-inverse card-warning">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="m-r-20 align-self-center">
+                                        <h1 class="text-white"><i class="ti-pie-chart"></i></h1></div>
+                                    <div>
+                                        <h3 class="card-title"><a href="#" style="color:#fff;">Create an NFT ML tool </a></h3>
+                                        <h6 class="card-subtitle">Create an NFT tool that can help you with your futur NFT Crypto trading</h6> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 align-self-center">
+                                        <h2 class="font-light text-white">NFT | Mints | Crypto</h2>
+                                    </div>
+                                    <div class="col-6 p-t-10 p-b-20 align-self-center">
+                                        <div class="usage chartist-chart" style="height:65px"><div class="chartist-tooltip" style="top: 32.8333px; left: 155.117px;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-inverse card-success">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="m-r-20 align-self-center">
+                                        <h1 class="text-white"><i class="icon-cloud-download"></i></h1></div>
+                                    <div>
+                                        <h3 class="card-title"><a href="#" style="color:#fff;">Block Chain</a></h3>
+                                        <h6 class="card-subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+molestiae quas vel </h6> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 align-self-center">
+                                        <h2 class="font-light text-white">Crypto | Blockchain</h2>
+                                    </div>
+                                    <div class="col-6 p-t-10 p-b-20 text-right">
+                                        <div class="spark-count" style="height:65px"><canvas style="display: inline-block; width: 146px; height: 70px; vertical-align: top;" width="146" height="70"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-inverse card-info">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="m-r-20 align-self-center">
+                                        <h1 class="text-white"><i class="icon-list"></i></h1></div>
+                                    <div>
+                                        <h3 class="card-title"><a href="#" style="color:#fff;">ML & AI</a></h3>
+                                        <h6 class="card-subtitle">Lorem ipsum dolor sit amet consectetur </h6> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 align-self-center">
+                                        <h2 class="font-light text-white">ML | AI</h2>
+                                    </div>
+                                    <div class="col-6 p-t-10 p-b-20 align-self-center">
+                                        <div class="usage chartist-chart" style="height:65px"><div class="chartist-tooltip" style="top: 32.8333px; left: 155.117px;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-inverse card-primary">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="m-r-20 align-self-center">
+                                        <h1 class="text-white"><i class="icon-list"></i></h1></div>
+                                    <div>
+                                        <h3 class="card-title"><a href="#" style="color:#fff;">ML & AI</a></h3>
+                                        <h6 class="card-subtitle">Lorem ipsum dolor sit amet consectetur </h6> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 align-self-center">
+                                        <h2 class="font-light text-white">ML | AI</h2>
+                                    </div>
+                                    <div class="col-6 p-t-10 p-b-20 align-self-center">
+                                        <div class="usage chartist-chart" style="height:65px"><div class="chartist-tooltip" style="top: 32.8333px; left: 155.117px;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ============================================================== -->
+
+              
+            
+      
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+           
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+
+    <script>
+
+    // MAterial Date picker    
+    jQuery('#startdate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery('#enddate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery(".searchForm").on("submit", function(){
+        jQuery("#pageloader").fadeIn();
+      });//submit
+         
+    </script>
+
+
+    <!-- Chart JS -->
+    <script src="{{ url_for('static', filename='assets/plugins/Chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/Chart.js/sa_radar.js') }}"></script>
+
+
+
+    
+
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Recherche Facebook  </h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Analyse</li>
+                            <li class="breadcrumb-item active">Recherche</li>
+                        </ol>
+                        
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+            
+
+
+
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+   <!-- Column -->
+                <div class="row">
+                  
+                    <div class="col-md-3 col-lg-3 col-xs-6 choose-content" id="facebook-show">
+                      <div class="card card-inverse card-info">
+                          <div class="box text-center" data-toggle="tooltip" title="le nombre de publications citant la marque étudiée">
+                              <h1 class="font-light text-white">Facebook</h1>
+                              
+                          </div>
+                      </div>
+                  </div>
+
+                   <!-- Column -->
+                  <div class="col-md-3 col-lg-3 col-xs-6 choose-content" id="youtube-show">
+                      <div class="card card-inverse">
+                          <div class="box text-center" data-toggle="tooltip" title="le nombre de publications citant la marque étudiée">
+                              <h1 class="font-light text-white">Youtube</h1>
+                          </div>
+                      </div>
+                  </div>
+              
+
+                  <!-- Column -->
+                  <div class="col-md-3 col-lg-3 col-xs-6 choose-content" id="twitter-show">
+                      <div class="card card-inverse">
+                          <div class="box text-center" data-toggle="tooltip" title="le nombre de publications citant la marque étudiée">
+                              <h1 class="font-light text-white">Twitter</h1>
+                          </div>
+                      </div>
+                  </div>
+              
+                  <!-- Column -->
+                  <div class="col-md-3 col-lg-3 col-xs-6 choose-content" id="website-show">
+                      <div class="card card-megna">
+                          <div class="box text-center" data-toggle="tooltip" title="nombre de personne ayant cité votre marque">
+                              <h1 class="font-light text-white">websites</h1>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+
+
+<div id="facebook-content">
+Facebook
+</div>
+<div id="youtube-content">
+Youtube
+</div>
+<div id="twitter-content">
+Twittr
+</div>
+
+<div id="website-content">
+websites
+</div>
+
+
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           {% block scripts %}
+
+
+
+
+
+<script type="text/javascript">
+
+$("#facebook-show").click(function(){
+  $("#youtube-content").hide();
+  $("#twitter-content").hide();
+  $("#website-content").hide();
+  $("#facebook-content").show();
+  $(".choose-content").removeClass('active');
+  $("#facebook-show").addClass('active');
+});
+
+$("#youtube-show").click(function(){
+  $("#facebook-content").hide();
+  $("#twitter-content").hide();
+  $("#website-content").hide();
+  $("#youtube-content").show();
+  $(".choose-content").removeClass('active');
+  $("#youtube-show").addClass('active');
+});
+
+$("#twitter-show").click(function(){
+  $("#youtube-content").hide();
+  $("#facebook-content").hide();
+  $("#website-content").hide();
+  $("#twitter-content").show();
+  $(".choose-content").removeClass('active');
+  $("#twitter-show").addClass('active');
+});
+
+$("#website-show").click(function(){
+  $("#youtube-content").hide();
+  $("#facebook-content").hide();
+  $("#twitter-content").hide();
+  $("#website-content").show();
+  $(".choose-content").removeClass('active');
+  $("#website-show").addClass('active');
+});
+$("#facebook-show").click();
+</script>
+
+
+
+    <script>
+    
+    // MAterial Date picker    
+    jQuery('#startdate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery('#enddate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery(".searchForm").on("submit", function(){
+        jQuery("#pageloader").fadeIn();
+      });//submit
+    jQuery(window).bind("pageshow", function(event) {
+        jQuery("#pageloader").hide();
+      });
+         
+    </script>
+
+           {% endblock %}
+{% endblock %}

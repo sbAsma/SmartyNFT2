@@ -1,0 +1,202 @@
+{% extends "layout.html" %}
+      
+{% block content %}
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+          <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor">Train Page for Sentiment Analysis</h3>
+            {% with messages = get_flashed_messages(with_categories = True) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{category}}">
+                    {{message}}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+              <li class="breadcrumb-item active">Sentiment Analysis</li>
+            </ol>
+          </div>
+          
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        
+
+
+
+
+
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+
+
+          
+
+          
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Sentiment Analysis on Excel</h4>
+                <h6 class="card-subtitle">Upload an file with a column named "Text", and will get Sentiment analysis of all that column. </h6>
+                <form class="dropzon searchForm" method="POST" id="upload-form" action=" {{url_for('analyse.sentiment_rnn_result')}} " enctype="multipart/form-data">
+                  <div class="row">
+                  <div class="col-sm-4">
+                    <label class="m-t-10"></label><br>
+                    <div class="fallback">
+                      <input name="file" type="file" style="background: #fff8cf; padding: 20px;" />
+                    </div> 
+                  </div>
+                  
+                  <div class="col-sm-2">
+                    <label class="m-t-10">Secteur</label>
+                    <select class="selectpicker m-b-20 m-r-10" id="secteur" name="secteur" data-style="btn-info btn-outline-info">
+                      <option value="telecom">Télécom</option>
+                      <option  value="eau">Eau</option>
+                      <option value="automobile">Automobile</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="m-t-10">Model</label>
+                    <select class="selectpicker m-b-20 m-r-10" id="model" name="model" data-style="btn-info btn-outline-info">
+                      <option value="default">Our Model</option>
+                      {% for model in folders %}
+                      <option value="{{model}}">{{model}}</option>
+                      
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <label class="m-t-10">Stop Words</label>
+                    <select class="selectpicker m-b-20 m-r-10" id="stopwords" name="stopwords" data-style="btn-info btn-outline-info">
+                      <option value="all">Tout</option>
+                      <option value="dareja">Dareja</option>
+                      <option value="arabic">Arabe</option>
+                      <option value="french">Francais</option>
+                      <option value="english">Anglais</option>
+                    </select>
+                  </div>
+
+
+                  <div class="col-sm-4">
+                    <label class="m-t-10">Ready !</label><br>
+                    <input type="submit" class="btn rounded  btn-success" value="Upload & Get Sentiment Analysis">
+                  </div>
+
+                  
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+         {{ results_df.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
+
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+       
+{% block scripts %}   
+  <script>
+  jQuery(".searchForm").on("submit", function(){
+    jQuery("#pageloader").fadeIn();
+    });//submit
+
+  jQuery(window).bind("pageshow", function(event) {
+    jQuery("#pageloader").hide();
+  });
+     
+  </script>
+  {% endblock %}
+
+{% endblock %}

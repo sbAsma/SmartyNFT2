@@ -1,0 +1,222 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0">Sentiment Analysis Results</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Results</a></li>
+                            <li class="breadcrumb-item active">Results</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <h2 class="d-inline">Naive Bayes Algorithm <a href="#code1" data-toggle="collapse"><i class="fa fa-code" data-toggle="tooltip" title="Get code"></i></a></h2>
+                <p class="text-muted m-t-0">For the code click on above code icon</p>
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="roun align-self-center roun-info"><i class="fa fa-comments-o icon icon-blue"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_all}}</h3>
+                                        <h5 class="text-muted m-b-0">Total</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class=" align-self-center round-success"><i class="fa fa-smile-o icon icon-green"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_pos}}</h3>
+                                        <h5 class="text-muted m-b-0">Positive</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="roun align-self-center roun-info"><i class="fa fa-frown-o icon icon-red"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">{{count_neg}}</h3>
+                                        <h5 class="text-muted m-b-0">Negative</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+
+                    <!-- Column -->
+                    <div class="col-md-6 col-lg-6 col-xlg-2">
+                        <div class="card card-inverse card-megna">
+                            <div class="box text-center">
+                                <h1 class="font-light text-white">{{accuracy}} %</h1>
+                                <h6 class="text-white">ACCURACY RATE</h6>
+                                <h4 class="text-white">The model is performing well</h4>
+                                <h3 class="text-white">The Reuslt of your comment is: <br>
+                                    {% if prediction == 1 %}
+                                    <h2 style="color:red;">Negative</h2>
+                                    {% elif prediction == 0 %}
+                                    <h2 style="color:green">Positive</h2>
+                                    {% endif %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Confusion Table</h4>
+                                <div class="table-responsive">
+                                    <table class="table color-table success-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Predicted Positive</th>
+                                                <th>Predicted Negative</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Negative</td>
+                                                <td>{{false_positive}}</td>
+                                                <td>{{true_negative}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Positive</td>
+                                                <td>{{true_positive}}</td>
+                                                <td>{{false_negative}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Training Data You used</h4>
+                                <div class="table-responsive">
+                                    {{ result_list.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+
+                                   
+                                    
+
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    
+                    
+                </div>
+                <!-- Row -->
+
+                
+
+                
+                
+
+                
+               
+                
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <div class="right-sidebar">
+                    <div class="slimscrollright">
+                        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+                        <div class="r-panel-body">
+                            <ul id="themecolors" class="m-t-20">
+                                <li><b>With Light sidebar</b></li>
+                                <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
+                                <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
+                                <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
+                                <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
+                                <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
+                                <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
+                                <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
+                                <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
+                                <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
+                                <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
+                                <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
+                                <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
+                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
+                            </ul>
+                            <ul class="m-t-20 chatonline">
+                                <li><b>Chat option</b></li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+        
+{% endblock %}

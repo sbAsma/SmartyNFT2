@@ -1,0 +1,505 @@
+{% extends "layout.html" %}
+      
+{% block content %}
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+
+      <!-- ============================================================== -->
+      <!-- Container fluid  -->
+      <!-- ============================================================== -->
+      <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+          <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor">results of ML.</h3>
+            {% with messages = get_flashed_messages(with_categories = True) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{category}}">
+                    {{message}}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+              <li class="breadcrumb-item active">Train</li>
+              <li class="breadcrumb-item">Results</li>
+            </ol>
+          </div>
+          
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        
+
+
+
+
+        <!-- Start Page Content -->
+
+        <div class="row">
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xs-6">
+              <div class="card card-inverse card-info">
+                  <div class="box bg-info text-center">
+                      <h1 class="font-light text-white">{{model_info['train_len']}}</h1>
+                      <h6 class="text-white">Training Data Length</h6>
+                  </div>
+              </div>
+          </div>
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xs-6">
+              <div class="card card-primary card-inverse">
+                  <div class="box text-center">
+                      <h1 class="font-light text-white">{{model_info['validation_len']}}</h1>
+                      <h6 class="text-white">Validation Data length</h6>
+                  </div>
+              </div>
+          </div>
+      
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xs-6">
+              <div class="card card-inverse card-megna">
+                  <div class="box text-center">
+                      <h1 class="font-light text-white">{{model_info.vocab_size}}</h1>
+                      <h6 class="text-white">Number of Features</h6>
+                  </div>
+              </div>
+          </div>
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xs-6">
+              <div class="card card-inverse card-warning">
+                  <div class="box text-center">
+                      <h1 class="font-light text-white">{{model_info['n_epochs']}}</h1>
+                      <h6 class="text-white">Number of Epochs</h6>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Column -->
+          <div class="col-md-3 col-lg-3">
+              <div class="card card-body">
+                  <!-- Row -->
+                  <div class="row">
+                      <!-- Column -->
+                      <div class="col p-r-0 align-self-center">
+                          <h2 class="font-light m-b-0">{{last_accuracy}} %</h2>
+                          <h6 class="text-muted">Accuracy</h6></div>
+                      <!-- Column -->
+                      <div class="col text-right align-self-center">
+                          <div data-label="{{last_accuracy}}%" class="css-bar m-b-0 css-bar-info css-bar-{{last_acc_per}}"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Column -->
+           <!-- Column -->
+          <div class="col-md-3 col-lg-3">
+              <div class="card card-body">
+                  <!-- Row -->
+                  <div class="row">
+                      <!-- Column -->
+                      <div class="col p-r-0 align-self-center">
+                          <h2 class="font-light m-b-0">{{last_val_accuracy}} %</h2>
+                          <h6 class="text-muted">Accuracy On validation</h6></div>
+                      <!-- Column -->
+                      <div class="col text-right align-self-center">
+                          <div data-label="{{last_val_accuracy}}%" class="css-bar m-b-0 css-bar-success css-bar-{{last_val_acc_per}}"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Column -->
+
+           <!-- Column -->
+          <div class="col-md-3 col-lg-3">
+              <div class="card card-body">
+                  <!-- Row -->
+                  <div class="row">
+                      <!-- Column -->
+                      <div class="col p-r-0 align-self-center">
+                          <h2 class="font-light m-b-0">{{last_loss}} %</h2>
+                          <h6 class="text-muted">Loss</h6></div>
+                      <!-- Column -->
+                      <div class="col text-right align-self-center">
+                          <div data-label="{{last_loss}}%" class="css-bar m-b-0 css-bar-warning css-bar-{{last_loss_per}}"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Column -->
+
+
+           <!-- Column -->
+          <div class="col-md-3 col-lg-3">
+              <div class="card card-body">
+                  <!-- Row -->
+                  <div class="row">
+                      <!-- Column -->
+                      <div class="col p-r-0 align-self-center">
+                          <h2 class="font-light m-b-0">{{last_val_loss}} %</h2>
+                          <h6 class="text-muted">Loss on Validation</h6></div>
+                      <!-- Column -->
+                      <div class="col text-right align-self-center">
+                          <div data-label="{{last_val_loss}}%" class="css-bar m-b-0 css-bar-danger css-bar-{{last_val_loss_per}}"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Column -->
+        </div>
+
+
+
+
+
+
+
+
+
+
+          <div class="row">
+
+            <div class="col-sm-5">
+              <!--
+              <div class="card card-inverse card-success">
+                  <div class="card-body">
+                      <div class="d-flex">
+                          <div class="m-r-20 align-self-center">
+                              <h1 class="text-white"><i class="icon-cloud-download"></i></h1></div>
+                          <div>
+                              <h3 class="card-title">Download count</h3>
+                              <h6 class="card-subtitle">March  2017</h6> </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-4 align-self-center">
+                              <h2 class="font-light text-white">35487</h2>
+                          </div>
+                          <div class="col-8 p-t-10 p-b-20 text-right">
+                              <div class="spark-count" style="height:65px"><canvas style="display: inline-block; width: 146px; height: 70px; vertical-align: top;" width="146" height="70"></canvas></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            -->
+
+            <div class="card">
+                  <div class="card-body">
+                      <div class="row">
+                          
+                          <!-- Column -->
+                          <div class="col-lg-12 col-md-12">
+                              <h4 class="card-title">Information about your model</h4>
+
+                              {% for key in myMsgs %} 
+                                {% for value in myMsgs[key]: %} 
+
+                                <div class="alert alert-{{key}}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                    <h3 class="text-{{key}}"><i class="fa fa-exclamation-triangle"></i> {{key}}</h3> {{value}}.
+                                </div>
+
+                                {% endfor %}
+
+                              {% endfor %}
+
+
+
+                          </div>
+                          <!-- Column -->
+                      </div>
+                  </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-sm-7 col-md-7">
+
+              <div class="card">
+                  <div class="card-body">
+                      <h3>Classification Report</h3>
+
+                      <div class="table-responsive">
+                          {{ class_report_df.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                      </div>
+                  </div>
+              </div>
+            
+              <div class="card">
+                  <div class="card-body">
+                      <h3>Table de confusion</h3>
+                      <h4 class="card-title">Confusion Table</h4>
+
+                      <div class="table-responsive">
+                          {{ confusion.to_html(classes="display nowrap table table-hover table-striped table-bordered dataTable",na_rep="-") | safe}}
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+
+           
+
+          </div>
+          
+
+
+        
+        <div class="row">
+
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-body">
+                      <h4 class="card-title">Accuracy Scores And Value accuracy</h4>
+                      <canvas id="Accuracy" width="600" height="400"></canvas>                        
+                  </div>
+              </div>
+          </div>
+          
+
+
+          <div class="col-md-6">
+              <div class="card">
+                  <div class="card-body">
+                      <h4 class="card-title">Loss Scores And Value Loss</h4>
+                      <canvas id="Loss" width="600" height="400"></canvas>                        
+                  </div>
+              </div>
+          </div>
+
+
+
+
+          <div class="row">          
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Save This Model</h4>
+                  <h6 class="card-subtitle">If you are satisfied by this model, you can give it a name and save it. </h6>
+
+                  <form class="searchForm" method="POST" id="upload-form" action="save_model_rnn?tmp_folder={{tmp_folder}}&model_info={{model_info}}" enctype="multipart/form-data">
+                      <div class="row">
+
+                        <div class="col-sm-8">
+                          <div class="form-group">
+                            <label for="modelName">Model Name :</label>
+                            <input class="form-control required" id="modelName" name="modelName" />
+                            
+                          </div>    
+                        </div>
+
+                       
+
+                        <div class="col-sm-4">
+                            <label class="m-t-10">Ready !</label><br>
+                            <input type="submit" class="btn rounded  btn-success" value="Save Model">
+                        </div>
+
+                        
+                      </div>
+                    </form>
+          
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
+
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        
+        <!-- ============================================================== -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+       
+{% block scripts %}   
+
+  <!-- Graph For Accuracy -->
+<script>
+    // Our labels along the x-axis
+  var n_features = [
+            {% for item in epoch_step %}
+             "{{ item }}",
+            {% endfor %}
+      ];
+
+  // For drawing the lines
+  var acc = [
+              {% for item in all_accuracy %}
+                 "{{ item }}",
+                {% endfor %}
+          ];
+
+  var val_acc = [
+              {% for item in all_val_accuracy %}
+                 "{{ item }}",
+                {% endfor %}
+          ];
+
+  var ctx1 = document.getElementById("Accuracy");
+  var Accuracy = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: n_features,
+      datasets: [
+        { 
+          data: acc, 
+          label: "Accuracy", 
+          borderColor: "#3e95cd",
+          fill: false
+
+        }, { 
+          data: val_acc, 
+          label: "Value Accuracy", 
+          borderColor: "#dfe7b7",
+          fill: false
+
+        }
+      ]
+    }
+  });
+  </script>
+
+
+  <script>
+    // Our labels along the x-axis
+  var n_features = [
+            {% for item in epoch_step %}
+             "{{ item }}",
+            {% endfor %}
+      ];
+
+  // For drawing the lines
+  var loss = [
+              {% for item in all_loss %}
+                 "{{ item }}",
+                {% endfor %}
+          ];
+
+  var val_loss = [
+              {% for item in all_val_loss %}
+                 "{{ item }}",
+                {% endfor %}
+          ];
+
+  var ctx2 = document.getElementById("Loss");
+  var Loss = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: n_features,
+      datasets: [
+        { 
+          data: loss, 
+          label: "Loss", 
+          borderColor: "#ffcc5c",
+          fill: false
+
+        }, { 
+          data: val_loss, 
+          label: "Value Loss", 
+          borderColor: "#d55c88",
+          fill: false
+
+        }
+      ]
+    }
+  });
+  </script>
+
+
+
+  <script>
+  jQuery(".searchForm").on("submit", function(){
+    jQuery("#pageloader").fadeIn();
+    });//submit
+
+  jQuery(window).bind("pageshow", function(event) {
+    jQuery("#pageloader").hide();
+  });
+     
+  </script>
+  {% endblock %}
+
+{% endblock %}

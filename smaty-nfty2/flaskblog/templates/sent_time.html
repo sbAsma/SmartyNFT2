@@ -1,0 +1,234 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Train Page for Sentiment Analysis</h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Train</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+                
+
+                </div>
+
+                <div class="row">
+
+                    <!-- column -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Bar Chart</h4>
+                                {{to_df_posts}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+
+
+                    <!-- Sentiments percentages -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Pourcentage des polarités</h4>
+                                {{word_count_all}} | 
+                                {{keyword_len}} | 
+                                {{keyword_comments_len}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+
+
+                    <!-- radar chart -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Radar Chart</h4>
+                                <div>
+                                    <canvas id="chart6" height="225"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <!-- All words graphs -->
+                    <div class="col-lg-12">
+
+
+
+                    </div>
+
+
+
+
+
+               
+
+
+
+
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           {% block scripts %}
+
+
+
+    <script>
+
+    // MAterial Date picker    
+    jQuery('#startdate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery('#enddate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery(".searchForm").on("submit", function(){
+        jQuery("#pageloader").fadeIn();
+      });//submit
+         
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           {% endblock %}
+{% endblock %}

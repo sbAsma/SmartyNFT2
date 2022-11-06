@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='assets/images/favicon.png')}}">
+    {% if title %}
+    <title>SMARTY NFTY - {{title}}</title>
+    {% else %}
+    <title>Home Page</title>
+    {% endif %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='assets/plugins/owl.carousel/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='assets/plugins/owl.carousel/owl.theme.default.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style-home.css') }}" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="{{ url_for('static', filename='css/colors/blue.css') }}" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topheader" id="top">
+            <div class="fix-width">
+                <nav class="navbar navbar-expand-md navbar-light p-l-0">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <!-- Logo will be here -->
+                    <a class="navbar-brand" href="index.html"><img src="{{ url_for('static', filename='assets/images/logo-icon.png') }}" alt="Home" /><img src="{{ url_for('static', filename='assets/images/logo-text.png') }}" alt="admin template" /></a>
+                    <!-- This is the navigation menu -->
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav ml-auto stylish-nav">
+                            
+                            <li class="nav-item"> <a class="nav-link" href="#">A Propos</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#" target="_blank">Contact</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="{{url_for('users.login')}}" >Login</a> </li>
+                            <li class="nav-item"> <a class="m-t-5 btn btn-info font-13" href="{{url_for('users.register')}}" style="width:120px;">Register Now</a> </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                
+
+
+
+                {% block content %}{% endblock %}
+
+
+
+
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <a class="bt-top btn btn-circle btn-lg btn-info" href="#top"><i class="ti-arrow-up"></i></a>
+                <footer class="footer row">
+                    <div class="fix-width">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6"><img src="{{ url_for('static', filename='assets/images/logo-light-icon.png') }}" alt="logo" /> <img src="{{ url_for('static', filename='assets/images/logo-light-text.png') }}" alt="logo" />
+                                <p class="m-t-30">
+                                    <span class="text-white">SMARTy NFTy</span> is a powerful tool that helps you get better at trading NFTs and cryptos. </p>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <ul class="footer-link list-icons">
+                                    <li><a href="#"><i class="ti-angle-right"></i> Dashboard 1</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i> Dashboad 2</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i> Dashboad 3</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i> Dashboard 4</a></li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <ul class="footer-link list-icons">
+                                    <li><a href="#"><i class="ti-angle-right"></i> Widget Sections</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i>A Propos</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i> Contact</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i> AI</a></li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <ul class="footer-link list-icons">
+                                    <li><a href="#"><i class="ti-angle-right"></i>Register</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i>Login</a></li>
+                                    <li><a href="#"><i class="ti-angle-right"></i>IMMAR</a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12 sub-footer">
+                                <span>Copyright 2022. All Rights Reserved by <a class="text-white" href="#" target="_blank">SMARTy NFTy</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+
+    <!-- ============================================================== -->
+    <script src="{{ url_for('static', filename='assets/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{{ url_for('static', filename='assets/plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    
+        <!--Wave Effects -->
+    <script src="{{ url_for('static', filename='js/waves.js') }}"></script>
+    <!--stickey kit -->
+    <script src="{{ url_for('static', filename='assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/plugins/owl.carousel/owl.carousel.min.js') }}"></script>
+
+    
+    
+    <!--Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/custom-home.min.js') }}"></script>
+    <!-- ============================================================== -->
+
+
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+
+
+
+    {% block scripts %}{% endblock %}
+
+
+
+
+
+</body>
+
+</html>

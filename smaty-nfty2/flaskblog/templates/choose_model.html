@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Train Page for Sentiment Analysis</h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Sentiment Analysis</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+
+
+
+
+
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+                    
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Sentiment Analysis on Excel</h4>
+                                <h6 class="card-subtitle">Upload an file with a column named "Text", and will get Sentiment analysis of all that column. </h6>
+                                <form class="dropzon searchForm" method="POST" id="upload-form" action="{{url_for('analyse.save_model2')}} " enctype="multipart/form-data">
+                                  <div class="row">
+                                    <div class="col-sm-4">
+                                        <label class="m-t-10"></label><br>
+                                        <div class="fallback">
+                                            <input name="file" type="file" style="background: #fff8cf; padding: 20px;" />
+                                        </div> 
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label class="m-t-10">Model Name</label><br>
+                                        <input type="text" name="modelName" id="modelName"  />
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Algorithm</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="classifier" name="classifier" data-style="btn-info btn-outline-info">
+                                            <option value="Logistic_Regression">Logistic Regression</option>
+                                            <option value="Linear_SVC">Linear SVC</option>
+                                            <option value="LinearSVC_L1">LinearSVC with L1-based feature selection</option>
+                                            <option value="Multinomial_NB">Multinomial NB</option>
+                                            <option value="Bernoulli_NB">Bernoulli NB</option>
+                                            <option value="Ridge_Classifier">Ridge Classifier</option>
+                                            <option value="AdaBoost">AdaBoost</option>
+                                            <option value="Perceptron">Perceptron</option>
+                                            <option value="Passive_Aggresive">Passive Aggresive</option>
+                                            <option value="Nearest_Centroid">Nearest Centroid</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Word Association</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="word_grams" name="word_grams" data-style="btn-info btn-outline-info">
+                                            <option value="unigrams">Unigrams</option>
+                                            <option value="bigrams">Bigrams</option>
+                                            <option value="trigrams">Trigrams</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Vectorization</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="vectorizer" name="vectorizer" data-style="btn-info btn-outline-info">
+                                            <option value="tfidf">TF-IDF</option>
+                                            <option value="cv">Count-Vectorizer</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Stop Words</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="stopwords" name="stopwords" data-style="btn-info btn-outline-info">
+                                            <option value="dareja">Dareja</option>
+                                            <option value="arabic">Arabic</option>
+                                            <option value="french">Francais</option>
+                                            <option value="english">Anglais</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <label class="m-t-10">Ready !</label><br>
+                                        <input type="submit" class="btn rounded  btn-success" value="Save Model">
+                                    </div>
+
+                                    
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           
+{% block scripts %}     
+    <script>
+    jQuery(".searchForm").on("submit", function(){
+        jQuery("#pageloader").fadeIn();
+      });//submit
+         
+    </script>
+    {% endblock %}
+
+{% endblock %}

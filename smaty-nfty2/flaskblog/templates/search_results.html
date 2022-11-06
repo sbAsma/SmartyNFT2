@@ -1,0 +1,977 @@
+{% extends "layout.html" %}
+            
+{% block content %}
+<div id="pageloader">
+   <img src="{{url_for('static', filename='assets/images/preloader2.gif')}}" alt="processing..." />
+   <!--<img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />-->
+</div>
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor">Resultat de Recherche</h3>
+                        {% with messages = get_flashed_messages(with_categories = True) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{category}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Acceuil</a></li>
+                            <li class="breadcrumb-item active">Analyse</li>
+                            <li class="breadcrumb-item active">Recherche</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+
+                    
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="post" action="{{url_for('analyse.search_results')}}" class="searchForm">
+
+                                <h4 class="card-title">Resultat de la recherche</h4>
+
+                                
+                                <div class="row">
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="m-t-10">Profile</label>
+                                            <input type="text" class="form-control" id="commenter" name="commenter" placeholder="By Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="m-t-10">Commentaire</label>
+                                            <input type="text" class="form-control" id="comment" name="comment" placeholder="enter a keyword">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Operateur</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="operator" name="operator" data-style="btn-info btn-outline-info">
+                                            <option data-tokens="ketchup mustard" value="5">Ooredoo</option>
+                                            <option data-tokens="mustard" value="6">Djezzy</option>
+                                            <option data-tokens="frosting" value="7">Mobilis</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Start Date</label>
+                                        <input type="text" class="form-control" placeholder="2019-06-04" value="2016-10-01" id="startdate" name="startdate">
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">End Date</label>
+                                        <input type="text" class="form-control" placeholder="2019-06-04" value="2019-08-30" id="enddate" name="enddate">
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Modele</label>
+                                        <select class="selectpicker m-b-20 m-r-10" id="model" name="model" data-style="btn-info btn-outline-info">
+                                            {% for model in models %}
+                                            <option data-tokens="{{model}}" value="{{model}}">{{model}}</option>
+                                            
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                        <label class="m-t-10">Ready !</label><br>
+                                        <button type="submit" class="btn waves-effect waves-light btn-rounded btn-primary">Search</button>
+                                    </div>
+                                </div>  
+                                </form> 
+
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    
+
+
+                    <!-- Sentiments percentages -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Pourcentage des polarités</h4>
+                                <div id="sentiment-percentage"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+
+                    <!-- column -->
+                    <!-- column -->
+                    <div class="col-md-6">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Nombres de commentaires par polarités</h4>
+                                <div id="sentiment-count" style="width:100%; height:360px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <!-- column -->
+                </div>
+
+
+                    <!-- radar chart -->
+                    <!--
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Polarité par theme</h4>
+                                <div>
+                                    <canvas id="chart6" height="225"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                
+
+                    
+
+
+                    <!-- All words graphs -->
+                    <div class="col-lg-12">
+
+                        <div class="card">
+                            <div class="card-body p-b-0">
+                                <h4 class="card-title">Les Mots les plus utilisés dans les commentaires</h4>
+                                <!-- Nav tabs -->
+
+
+                                <ul class="nav nav-tabs customtab2" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#negwords" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Negative</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#neutralwords" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Neutral</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#positivewords" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Positive</span></a> </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane p-20 active" id="negwords" role="tabpanel">
+                                        
+                                        <canvas id="NegWords" width="600" height="400"></canvas>
+                                    </div>
+                                    <div class="tab-pane  p-20" id="neutralwords" role="tabpanel">
+                                        
+                                        <canvas id="NeuWords" width="600" height="400"></canvas>
+                                    </div>
+                                    <div class="tab-pane p-20" id="positivewords" role="tabpanel">
+                                        
+                                        <canvas id="PosWords" width="600" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                    <!-- Wordclouds -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body p-b-0">
+                                <h4 class="card-title">Wordclouds for the uploaded file</h4>
+                                <!-- Nav tabs -->
+
+
+                                <ul class="nav nav-tabs customtab2" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#negcloud" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Negative</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#neucloud" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Neutral</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#poscloud" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Positive</span></a> </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane p-20 active" id="negcloud" role="tabpanel">
+                                        <div id="chart_neg"></div>
+                                    </div>
+                                    <div class="tab-pane  p-20" id="neucloud" role="tabpanel">
+                                        <div id="chart_neu"></div>
+                                    </div>
+                                    <div class="tab-pane p-20" id="poscloud" role="tabpanel">
+                                        <div id="chart_pos"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-lg-12"> 
+                        <div class="card">
+                            <div class="card-body">
+                                <a class="pull-right btn btn-excel" href="download_excel?results_df={{results_df}}"><i class="fa fa-file-excel-o"></i> Télécharger en Excel</a>
+                                <h4>Résultats de Votre Recherche:</h4>
+
+                                <div class="table-responsiv m-t-30">
+                                    <table class="dataframe display nowrap table table-hover table-stripe table-bordered dataTable" border="1">
+                                        <thead>
+                                            <tr>
+                                                <th>Comment</th>
+                                                <th>Polarity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in range(0, new_df_length) %}
+                                            <tr {% if new_df.Polarity[i] == "Negative" %} class="alert alert-danger" {% elif new_df.Polarity[i] == 'Neutral' %} class="alert alert-secondary" {% else %} class="alert alert-success" {% endif %} >
+                                                <td>{{new_df.Comment[i]}} </td>
+                                                <td>{{new_df.Polarity[i]}} </td>
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                            
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+           {% block scripts %}
+
+
+
+    <script>
+
+    // MAterial Date picker    
+    jQuery('#startdate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery('#enddate').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    jQuery(".searchForm").on("submit", function(){
+        jQuery("#pageloader").fadeIn();
+      });//submit
+         
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+ // Morris donut chart
+        
+    Morris.Donut({
+        element: 'sentiment-percentage',
+        data: [{
+            label: "Positive",
+            value: "{{pos_percentage}}",
+
+        }, {
+            label: "Neutral",
+            value: "{{neu_percentage}}",
+        }, {
+            label: "Negative",
+            value: "{{neg_percentage}}",
+        }],
+        resize: true,
+        colors:['#11ce49', '#3e95cd', '#fd6d6d'],
+        formatter: function (value) { return value+"%"}
+    });
+
+    </script>
+
+
+
+<script>
+    var text_string = "{{for_wordcloud_neg}}";
+     
+
+      drawWordCloud(text_string);
+
+      function drawWordCloud(text_string){
+        var common = "poop,i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,shall,emoji,&#39,&#39,&lt,emoji&gt,/emoji&gt,1f635&lt";
+
+        var word_count = {};
+
+        var words = text_string.split(/[ '\-\(\)\*":;\[\]|{},.!?]+/);
+          if (words.length == 1){
+            word_count[words[0]] = 1;
+          } else {
+            words.forEach(function(word){
+              var word = word.toLowerCase();
+              if (word != "" && common.indexOf(word)==-1 && word.length>1){
+                if (word_count[word]){
+                  word_count[word]++;
+                } else {
+                  word_count[word] = 1;
+                }
+              }
+            })
+          }
+
+        var svg_location = "#chart_neg";
+        var width = "940";
+        var height = "460";
+
+        var fill = d3.scale.category20();
+
+        var word_entries = d3.entries(word_count);
+
+        var xScale = d3.scale.linear()
+           .domain([0, d3.max(word_entries, function(d) {
+              return d.value;
+            })
+           ])
+           .range([10,100]);
+
+        d3.layout.cloud().size([width, height])
+          .timeInterval(20)
+          .words(word_entries)
+          .fontSize(function(d) { return xScale(+d.value); })
+          .text(function(d) { return d.key; })
+          .rotate(function() { return ~~(Math.random() * 2) * 60; })
+          .font("Impact")
+          .on("end", draw)
+          .start();
+
+        function draw(words) {
+          d3.select(svg_location).append("svg")
+              .attr("width", width)
+              .attr("height", height)
+            .append("g")
+              .attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+            .selectAll("text")
+              .data(words)
+            .enter().append("text")
+              .style("font-size", function(d) { return xScale(d.value) + "px"; })
+              .style("font-family", "Impact")
+              .style("fill", function(d, i) { return fill(i); })
+              .attr("text-anchor", "middle")
+              .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+              })
+              .text(function(d) { return d.key; });
+        }
+
+        d3.layout.cloud().stop();
+      }
+    </script>
+
+
+
+
+
+
+
+
+<script>
+    var text_string = "{{for_wordcloud_neu}}";
+     
+
+      drawWordCloud(text_string);
+
+      function drawWordCloud(text_string){
+        var common = "poop,i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,shall,emoji,&#39,&#39,&lt,emoji&gt,/emoji&gt,1f635&lt";
+
+        var word_count = {};
+
+        var words = text_string.split(/[ '\-\(\)\*":;\[\]|{},.!?]+/);
+          if (words.length == 1){
+            word_count[words[0]] = 1;
+          } else {
+            words.forEach(function(word){
+              var word = word.toLowerCase();
+              if (word != "" && common.indexOf(word)==-1 && word.length>1){
+                if (word_count[word]){
+                  word_count[word]++;
+                } else {
+                  word_count[word] = 1;
+                }
+              }
+            })
+          }
+
+        var svg_location = "#chart_neu";
+        var width = "940";
+        var height = "460";
+
+        var fill = d3.scale.category20();
+
+        var word_entries = d3.entries(word_count);
+
+        var xScale = d3.scale.linear()
+           .domain([0, d3.max(word_entries, function(d) {
+              return d.value;
+            })
+           ])
+           .range([10,100]);
+
+        d3.layout.cloud().size([width, height])
+          .timeInterval(20)
+          .words(word_entries)
+          .fontSize(function(d) { return xScale(+d.value); })
+          .text(function(d) { return d.key; })
+          .rotate(function() { return ~~(Math.random() * 2) * 90; })
+          .font("Impact")
+          .on("end", draw)
+          .start();
+
+        function draw(words) {
+          d3.select(svg_location).append("svg")
+              .attr("width", width)
+              .attr("height", height)
+            .append("g")
+              .attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+            .selectAll("text")
+              .data(words)
+            .enter().append("text")
+              .style("font-size", function(d) { return xScale(d.value) + "px"; })
+              .style("font-family", "Impact")
+              .style("fill", function(d, i) { return fill(i); })
+              .attr("text-anchor", "middle")
+              .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+              })
+              .text(function(d) { return d.key; });
+        }
+
+        d3.layout.cloud().stop();
+      }
+    </script>
+
+
+
+
+
+
+
+    <script>
+    var text_string = "{{for_wordcloud_pos}}";
+     
+
+      drawWordCloud(text_string);
+
+      function drawWordCloud(text_string){
+        var common = "poop,i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,shall,emoji,&#39,&#39,&lt,emoji&gt,/emoji&gt,1f635&lt";
+
+        var word_count = {};
+
+        var words = text_string.split(/[ '\-\(\)\*":;\[\]|{},.!?]+/);
+          if (words.length == 1){
+            word_count[words[0]] = 1;
+          } else {
+            words.forEach(function(word){
+              var word = word.toLowerCase();
+              if (word != "" && common.indexOf(word)==-1 && word.length>1){
+                if (word_count[word]){
+                  word_count[word]++;
+                } else {
+                  word_count[word] = 1;
+                }
+              }
+            })
+          }
+
+        var svg_location = "#chart_pos";
+        var width = "940";
+        var height = "460";
+
+        var fill = d3.scale.category20();
+
+        var word_entries = d3.entries(word_count);
+
+        var xScale = d3.scale.linear()
+           .domain([0, d3.max(word_entries, function(d) {
+              return d.value;
+            })
+           ])
+           .range([10,100]);
+
+        d3.layout.cloud().size([width, height])
+          .timeInterval(20)
+          .words(word_entries)
+          .fontSize(function(d) { return xScale(+d.value); })
+          .text(function(d) { return d.key; })
+          .rotate(function() { return ~~(Math.random() * 2) * 60; })
+          .font("Impact")
+          .on("end", draw)
+          .start();
+
+        function draw(words) {
+          d3.select(svg_location).append("svg")
+              .attr("width", width)
+              .attr("height", height)
+            .append("g")
+              .attr("transform", "translate(" + [width >> 1, height >> 1] + ")")
+            .selectAll("text")
+              .data(words)
+            .enter().append("text")
+              .style("font-size", function(d) { return xScale(d.value) + "px"; })
+              .style("font-family", "Impact")
+              .style("fill", function(d, i) { return fill(i); })
+              .attr("text-anchor", "middle")
+              .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+              })
+              .text(function(d) { return d.key; });
+        }
+
+        d3.layout.cloud().stop();
+      }
+    </script>
+
+
+
+
+    <!-- Graph for Negative Words -->
+    <script>
+        // Our labels along the x-axis
+    var neg_labels = [
+              {% for item in neg_counts.word %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+    // For drawing the lines
+    var neg_values = [
+                {% for item in neg_counts.freq %}
+                   "{{ item }}",
+                  {% endfor %}
+            ];
+
+    var ctx5 = document.getElementById("NegWords");
+    var ugStopWords = new Chart(ctx5, {
+      type: 'horizontalBar',
+      data: {
+        labels: neg_labels,
+        datasets: [
+          { 
+            data: neg_values, 
+            label: "Negative Words", 
+            borderColor: "#fd6d6d",
+            backgroundColor: "#fd6d6d",
+            fill: false
+
+          }
+        ]
+      }
+    });
+    </script>
+
+
+
+    <!-- Graph for Neutral Words -->
+    <script>
+        // Our labels along the x-axis
+    var neu_labels = [
+              {% for item in neu_counts.word %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+    // For drawing the lines
+    var neu_values = [
+                {% for item in neu_counts.freq %}
+                   "{{ item }}",
+                  {% endfor %}
+            ];
+
+    var ctx7 = document.getElementById("NeuWords");
+    var ugStopWords = new Chart(ctx7, {
+      type: 'horizontalBar',
+      data: {
+        labels: neu_labels,
+        datasets: [
+          { 
+            data: neu_values, 
+            label: "Neutral Words", 
+            borderColor: "#3e95cd",
+            backgroundColor: "#3e95cd",
+            fill: false
+
+          }
+        ]
+      }
+    });
+    </script>
+
+
+
+    <script>
+    // Our labels along the x-axis
+    var pos_labels = [
+              {% for item in pos_counts.word %}
+               "{{ item }}",
+              {% endfor %}
+        ];
+
+    // For drawing the lines
+    var pos_values = [
+                {% for item in pos_counts.freq %}
+                   "{{ item }}",
+                  {% endfor %}
+            ];
+
+    var ctx4 = document.getElementById("PosWords");
+    var ugStopWords = new Chart(ctx4, {
+      type: 'horizontalBar',
+      data: {
+        labels: pos_labels,
+        datasets: [
+          { 
+            data: pos_values, 
+            label: "Positive Words", 
+            borderColor: "#11ce49",
+            backgroundColor: "#11ce49",
+            fill: false
+
+          }
+        ]
+      }
+    });
+    </script>
+
+
+
+
+    <!-- Chart JS -->
+    <script src="{{ url_for('static', filename='assets/plugins/Chart.js/Chart.min.js') }}"></script>
+
+
+    <script>
+        
+$( document ).ready(function() {
+    
+    var ctx6 = document.getElementById("chart6").getContext("2d");
+    var data6 = {
+        labels: ["Internet", "Reseau", "Offres", "Appelle", "Autres"],
+        datasets: [
+            {
+                label: "Negative",
+                fillColor: " #ee9998",
+                strokeColor: "#ea100c",
+                pointColor: "#ea100c",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "#ea100c",
+                data: ["{{neg_count_internet}}", "{{neg_count_reseau}}", "{{neg_count_offre}}", "{{neg_count_appelle}}", "{{neg_count_other}}"]
+            },
+            {
+                label: "Neutre",
+                fillColor: "rgba( 164, 196, 245, .7)",
+                strokeColor: "#4184eb",
+                pointColor: "#4184eb",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "#4184eb",
+                data: ["{{neu_count_internet}}", "{{neu_count_reseau}}", "{{neu_count_offre}}", "{{neu_count_appelle}}", "{{neu_count_other}}"]
+            }, 
+            {
+                label: "Positive",
+                fillColor: "rgba(161, 234, 134, .7)",
+                strokeColor: "#44cf10",
+                pointColor: "#44cf10",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "#44cf10",
+                data: ["{{pos_count_internet}}", "{{pos_count_reseau}}", "{{pos_count_offre}}", "{{pos_count_appelle}}", "{{pos_count_other}}"]
+            },
+        ]
+    };
+    
+    var myRadarChart = new Chart(ctx6).Radar(data6, {
+        scaleShowLine : true,
+        angleShowLineOut : true,
+        scaleShowLabels : false,
+        scaleBeginAtZero : true,
+        angleLineColor : "rgba(0,0,0,.1)",
+        angleLineWidth : 1,
+        pointLabelFontFamily : "'Arial'",
+        pointLabelFontStyle : "normal",
+        pointLabelFontSize : 10,
+        pointLabelFontColor : "#666",
+        pointDot : true,
+        pointDotRadius : 3,
+        tooltipCornerRadius: 2,
+        pointDotStrokeWidth : 1,
+        pointHitDetectionRadius : 20,
+        datasetStroke : true,
+        datasetStrokeWidth : 2,
+        datasetFill : true,
+        legendTemplate : "<ul class=\"\<\%=name.toLowerCase()\%\>-legend\">\<\% for (var i=0; i<datasets.length; i++){\%\><li><span style=\"background-color:\<\%=datasets[i].strokeColor\%\>\"></span>\<\%if(datasets[i].label){\%\>\<\%=datasets[i].label\%\>\<\%}\%\></li>\<\%}\%\></ul>",
+        responsive: true
+    });
+    
+});
+
+
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [{
+            y: 'Internet',
+            negative: "{{neg_count_internet}}",
+            neutre: "{{neu_count_internet}}",
+            positive: "{{pos_count_internet}}"
+        }, {
+            y: 'Réseau',
+            negative: "{{neg_count_reseau}}",
+            neutre: "{{neu_count_reseau}}",
+            positive: "{{pos_count_reseau}}"
+        }, {
+            y: 'Offre',
+            negative: "{{neg_count_offre}}",
+            neutre: "{{neu_count_offre}}",
+            positive: "{{pos_count_offre}}"
+        }, {
+            y: 'Appelle',
+            negative: "{{neg_count_appelle}}",
+            neutre: "{{neu_count_appelle}}",
+            positive: "{{pos_count_appelle}}"
+        }, {
+            y: 'Autres',
+            negative: "{{neg_count_other}}",
+            neutre: "{{neu_count_other}}",
+            positive: "{{pos_count_other}}"
+        }],
+        xkey: 'y',
+        ykeys: ['negative', 'neutre', 'positive'],
+        labels: ['Négative', 'Neutre', 'Positive'],
+        barColors:['#fd6d6d', '#3e95cd', '#11ce49'],
+        hideHover: 'auto',
+        gridLineColor: '#eef0f2',
+        resize: true
+    });
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- Script for le nombre de commentaires par polarite -->
+    <script type="text/javascript">
+
+
+
+var seriesLabel = {
+    show: true
+}
+
+
+  options_polarity_n = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['Negative', 'Neutre', 'Positive']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView: {show: true, readOnly: false},
+            magicType : {show: true, type: ['bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    color: ["#fd6d6d", "#3e95cd", "#11ce49"],
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ["Polarity"]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'negative',
+            type:'bar',
+            label: seriesLabel,
+            data: ["{{results_info.results_count_neg}}"] 
+        },
+        {
+            name:'neutre',
+            type:'bar',
+            label: seriesLabel,
+            data:["{{results_info.results_count_neu}}"] 
+        },
+        {
+            name:'positive',
+            type:'bar',
+            label: seriesLabel,
+            data:["{{results_info.results_count_pos}}"] 
+        }
+    ]
+};
+var myChart_polarity = echarts.init(document.getElementById('sentiment-count'));
+    // use configuration item and data specified to show chart
+    myChart_polarity.setOption(options_polarity_n, true), $(function() {
+        function resize() {
+            setTimeout(function() {
+                myChart_polarity.resize()
+            }, 100)
+        }
+        $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
+    });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+           {% endblock %}
+{% endblock %}
