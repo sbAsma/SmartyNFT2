@@ -7,5 +7,16 @@
     font-weight: bold;
     font-size: 25px;
     transition: opacity .3s;
+}
+
+.smarty-nft-tooltip .bad {
     color: #f00;
+}
+
+.smarty-nft-tooltip .good {
+    color: #fdc84d;
+}
+
+.smarty-nft-tooltip .super {
+    color: #0f0;
 }

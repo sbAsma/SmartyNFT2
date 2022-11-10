@@ -8,7 +8,11 @@
     const prediction = await fetchPrediction(img.src, token.innerText, collection.innerText)
 
     const predictionEl = document.createElement('span');
-    predictionEl.innerText = prediction;
+    predictionEl.innerHTML = [
+        '<span class="bad">Bad</span>',
+        '<span class="good">Good</span>',
+        '<span class="super">Super</span>'
+    ][prediction];
     tooltip.appendChild(predictionEl);
 
     document.body.addEventListener('mousemove', async (ev) => {
@@ -29,7 +33,7 @@
 
 // stub
 async function fetchPrediction(img, token, collection) {
-    return ['Bad', 'Good', 'Super'][Math.floor(Math.random() * 10 % 3)];
+    return Math.floor(Math.random() * 10 % 3);
 }
 
 function getFeaturesContainers() {
