@@ -33,7 +33,7 @@ async function fetchPrediction(img, token, collection) {
 }
 
 function getFeaturesContainers() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const timer = setInterval(function () {
             const els = {
                 img: document.querySelector('.Image--image'),
@@ -44,6 +44,11 @@ function getFeaturesContainers() {
             if (!Object.values(els).includes(null)) {
                 clearInterval(timer);
                 resolve(els);
+            }
+
+            if (document.querySelector('.AssetMedia--video')) {
+                clearInterval(timer);
+                reject("Asset is a video; only images are supported");
             }
         }, 500);
     })
